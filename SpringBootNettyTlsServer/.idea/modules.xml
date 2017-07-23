@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SpringBootNettyTlsServer.iml" filepath="$PROJECT_DIR$/.idea/modules/SpringBootNettyTlsServer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SpringBootNettyTlsServer_main.iml" filepath="$PROJECT_DIR$/.idea/modules/SpringBootNettyTlsServer_main.iml" group="SpringBootNettyTlsServer" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SpringBootNettyTlsServer_test.iml" filepath="$PROJECT_DIR$/.idea/modules/SpringBootNettyTlsServer_test.iml" group="SpringBootNettyTlsServer" />
+    </modules>
+  </component>
+</project>
