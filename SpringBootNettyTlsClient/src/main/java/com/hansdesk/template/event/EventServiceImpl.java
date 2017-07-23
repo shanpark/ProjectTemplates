@@ -39,35 +39,41 @@ public class EventServiceImpl implements EventService, Runnable {
 
     @Override
     public void run() {
-        logger.info("EventService starts.");
         Thread.currentThread().setName("evt_handlr");
+        logger.info("EventService starts.");
 
         Event event = null;
         boolean idle = false;
 
         // custom event queue loop
-        do {
+        while (true) {
             try {
                 if (idle)
-                    event = eventQueue.poll(1000, TimeUnit.MILLISECONDS); // wait 1 second.
+                    event = eventQueue.poll(1, TimeUnit.SECONDS); // wait 1 second.
                 else
-                    event = eventQueue.poll(); // no wait
+                    event = eventQueue.poll(); // no wait.
 
-                if (event != null) {
-                    idle = false;
+                if (event == null) {
+                    idle = true;
+                    event = eventPool.getEvent(EventType.ID_IDLE);
                 }
                 else {
-                    event = eventPool.getEvent(EventType.ID_IDLE);
-                    idle = true;
+                    idle = false;
                 }
 
                 eventHandler.handleEvent(event);
+
+                if (event.getId() == EventType.ID_SHUTDOWN)
+                    break;
             } catch (Exception e) {
                 logger.error("An exception occurred in AlbatrossMQ.eventLoop().", e);
-                if (event == null)
-                    event = eventPool.getEvent(EventType.ID_IDLE);
             }
-        } while (event.getId() != EventType.ID_SHUTDOWN);
+
+            if (event != null) {
+                eventPool.returnEvent(event);
+                event = null;
+            }
+        }
 
         logger.info("EventService ends.");
     }
