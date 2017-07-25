@@ -55,12 +55,6 @@ public class ServerNetty implements Server {
                 protected void initChannel(SocketChannel ch) throws Exception {
                     ChannelPipeline pipeline = ch.pipeline();
 
-                    // Add SSL handler first to encrypt and decrypt everything.
-                    // In this example, we use a bogus certificate in the server side
-                    // and accept any invalid certificates in the client side.
-                    // You will need something more complicated to identify both
-                    // and server in the real world.
-
                     SSLEngine engine = SslServerContextFactory.getSslContext().createSSLEngine();
                     engine.setUseClientMode(false);
 
@@ -87,9 +81,11 @@ public class ServerNetty implements Server {
 
     @Override
     public void stop() {
-        acceptorGroup.shutdownGracefully();
-        workerGroup.shutdownGracefully();
+        if (acceptorGroup != null) {
+            acceptorGroup.shutdownGracefully();
+            workerGroup.shutdownGracefully();
 
-        logger.info("The client has been stopped successfully.");
+            logger.info("The client has been stopped successfully.");
+        }
     }
 }
