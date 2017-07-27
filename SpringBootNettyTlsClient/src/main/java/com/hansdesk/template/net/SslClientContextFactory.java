@@ -2,6 +2,7 @@ package com.hansdesk.template.net;
 
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
@@ -20,11 +21,11 @@ public final class SslClientContextFactory {
 
     private SSLContext CLIENT_CONTEXT;
 
-    public SslClientContextFactory() {
-        ///////////////////////////////////////////////////////////////////////
-        // 클라이언트를 위한 SSLContext 생성.
-        // 이 예제에서는 모든 인증서를 Accept한다.
-
+    ///////////////////////////////////////////////////////////////////////
+    // 클라이언트를 위한 SSLContext 생성. 이 예제에서는 모든 인증서를 Accept한다.
+    // 다른 bean을 주입받아서 사용할 수 있도록 생성자 대신 postConstruct()를 사용함.
+    @PostConstruct
+    private void postConstruct() {
         SSLContext clientContext;
         try {
             TrustManager tm = new X509TrustManager() {

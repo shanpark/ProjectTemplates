@@ -3,6 +3,7 @@ package com.hansdesk.template.net;
 import io.netty.util.internal.SystemPropertyUtil;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 import java.io.FileInputStream;
@@ -23,7 +24,9 @@ public final class SslServerContextFactory {
 
     ///////////////////////////////////////////////////////////////////////
     // 서버를 위한 SSLContext 생성
-    public SslServerContextFactory() {
+    // 다른 bean을 주입받아서 사용할 수 있도록 생성자 대신 postConstruct()를 사용함.
+    @PostConstruct
+    private void postConstruct() {
         String algorithm = SystemPropertyUtil.get("ssl.KeyManagerFactory.algorithm");
         if (algorithm == null)
             algorithm = "SunX509";
