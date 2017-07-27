@@ -37,6 +37,8 @@ public class ServerNetty implements Server {
     private EventService eventService;
     @Autowired
     private EventPool eventPool;
+    @Autowired
+    private SslServerContextFactory sslServerContextFactory;
 
     private EventLoopGroup acceptorGroup;
     private EventLoopGroup workerGroup;
@@ -55,7 +57,7 @@ public class ServerNetty implements Server {
                 protected void initChannel(SocketChannel ch) throws Exception {
                     ChannelPipeline pipeline = ch.pipeline();
 
-                    SSLEngine engine = SslServerContextFactory.getSslContext().createSSLEngine();
+                    SSLEngine engine = sslServerContextFactory.getSslContext().createSSLEngine();
                     engine.setUseClientMode(false);
 
                     pipeline.addLast("ssl", new SslHandler(engine)); // pipeline의 가장 상단에 SslHandler를 배치한다.

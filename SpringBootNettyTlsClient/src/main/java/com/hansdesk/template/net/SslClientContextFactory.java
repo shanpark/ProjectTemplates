@@ -1,19 +1,26 @@
 package com.hansdesk.template.net;
 
+import org.springframework.stereotype.Component;
+
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import java.security.cert.X509Certificate;
 
 /**
+ * 이 예제에서는 반드시 Component로 선언할 필요는 없지만 Component로 생성하면 다른 Component를 주입받아 사용할 수 있기 때문에 더 편리하다.
+ * 실제 사용에서는 preferences 등의 객체를 주입받아 사용하는 경우가 많다.
+ *
  * Created by shanpark on 2017. 7. 21..
  */
+@Component
 public final class SslClientContextFactory {
 
     private static final String PROTOCOL = "TLSv1.2";
-    private static final SSLContext CLIENT_CONTEXT;
 
-    static {
+    private SSLContext CLIENT_CONTEXT;
+
+    public SslClientContextFactory() {
         ///////////////////////////////////////////////////////////////////////
         // 클라이언트를 위한 SSLContext 생성.
         // 이 예제에서는 모든 인증서를 Accept한다.
@@ -41,11 +48,7 @@ public final class SslClientContextFactory {
         CLIENT_CONTEXT = clientContext;
     }
 
-    public static SSLContext getSslContext() {
+    public SSLContext getSslContext() {
         return CLIENT_CONTEXT;
-    }
-
-    private SslClientContextFactory() {
-        // Singleton object.
     }
 }

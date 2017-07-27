@@ -37,6 +37,8 @@ public class ClientNetty implements Client {
     private EventService eventService;
     @Autowired
     private EventPool eventPool;
+    @Autowired
+    private SslClientContextFactory sslClientContextFactory;
 
     private EventLoopGroup workerGroup;
 
@@ -53,7 +55,7 @@ public class ClientNetty implements Client {
                 protected void initChannel(SocketChannel ch) throws Exception {
                     ChannelPipeline pipeline = ch.pipeline();
 
-                    SSLEngine engine = SslClientContextFactory.getSslContext().createSSLEngine();
+                    SSLEngine engine = sslClientContextFactory.getSslContext().createSSLEngine();
                     engine.setUseClientMode(true);
 
                     pipeline.addLast("ssl", new SslHandler(engine)); // pipeline의 가장 상단에 SslHandler를 배치한다.

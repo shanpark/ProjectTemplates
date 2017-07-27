@@ -1,6 +1,7 @@
 package com.hansdesk.template.net;
 
 import io.netty.util.internal.SystemPropertyUtil;
+import org.springframework.stereotype.Component;
 
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
@@ -8,16 +9,21 @@ import java.io.FileInputStream;
 import java.security.KeyStore;
 
 /**
+ * 이 예제에서는 반드시 Component로 선언할 필요는 없지만 Component로 생성하면 다른 Component를 주입받아 사용할 수 있기 때문에 더 편리하다.
+ * 실제 사용에서는 preferences 등의 객체를 주입받아 사용하는 경우가 많다.
+ *
  * Created by shanpark on 2017. 7. 21..
  */
+@Component
 public final class SslServerContextFactory {
 
     private static final String PROTOCOL = "TLSv1.2";
-    private static final SSLContext SERVER_CONTEXT;
+
+    private SSLContext SERVER_CONTEXT;
 
     ///////////////////////////////////////////////////////////////////////
     // 서버를 위한 SSLContext 생성
-    static {
+    public SslServerContextFactory() {
         String algorithm = SystemPropertyUtil.get("ssl.KeyManagerFactory.algorithm");
         if (algorithm == null)
             algorithm = "SunX509";
@@ -34,7 +40,7 @@ public final class SslServerContextFactory {
             ks.load(fin, keyStoreFilePassword.toCharArray());
 
             // Set up key manager factory to use our key store.
-            // Assume key password is the same as the key store file password.
+            // 여기서는 key password와 cert file password가 같다고 가정함.
             KeyManagerFactory kmf = KeyManagerFactory.getInstance(algorithm);
             kmf.init(ks, keyStoreFilePassword.toCharArray());
 
@@ -48,11 +54,7 @@ public final class SslServerContextFactory {
         SERVER_CONTEXT = serverContext;
       }
 
-    public static SSLContext getSslContext() {
+    public SSLContext getSslContext() {
         return SERVER_CONTEXT;
-    }
-
-    private SslServerContextFactory() {
-        // Singleton object.
     }
 }
