@@ -1,0 +1,41 @@
+.sign-up-next-box {
+    width: 400px;
+    padding: 47px 40px 30px;
+}
+
+.logo {
+    vertical-align: -6px;
+    margin-right: 5px;
+}
+
+.title {
+    color: #00336f;
+}
+
+.description {
+    color: #00336f;
+    margin-bottom: 10px;
+}
+
+.under-space {
+    margin-bottom: 16px;
+}
+
+.tip {
+    margin: 5px 0 10px;
+    color: #00336f;
+    user-select: none;
+}
+
+.err-tip {
+    margin: 5px 0 10px;
+    color: #df6600;
+    user-select: none;
+}
+
+.sign-up-next-btn {
+    min-width: 90px;
+    margin-top: 10px;
+    padding: 7px 15px;
+    font-size: 17px;
+}

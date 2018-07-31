@@ -1,0 +1,52 @@
+.sign-up-box {
+    width: 400px;
+    padding: 47px 40px 30px;
+}
+
+.half-width {
+    width: 50%;
+}
+
+.logo {
+    vertical-align: -6px;
+    margin-right: 5px;
+}
+
+.title {
+    color: #00336f;
+}
+
+.email-dup-check-btn {
+    padding: 2px 7px;
+    font-size: 11px;
+}
+
+.nickname-dup-check-btn {
+    padding: 2px 7px;
+    font-size: 11px;
+}
+
+.description {
+    color: #00336f;
+    margin-bottom: 10px;
+}
+
+.under-space {
+    margin-bottom: 16px;
+}
+
+.tip {
+    margin: 5px 0 10px;
+    user-select: none;
+}
+
+.err-tip {
+    color: #df6600;
+}
+
+.sign-up-btn {
+    min-width: 90px;
+    margin-top: 10px;
+    padding: 7px 15px;
+    font-size: 17px;
+}
