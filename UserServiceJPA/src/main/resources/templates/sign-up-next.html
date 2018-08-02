@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" type="text/css" href="../static/css/common.css" th:href="@{css/common.css}" />
+    <link rel="stylesheet" type="text/css" href="../static/css/common-ui.css" th:href="@{css/common-ui.css}" />
+    <link rel="stylesheet" type="text/css" href="../static/css/sign-up-next.css" th:href="@{css/sign-up-next.css}" />
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <!-- i18n/datepicker-xx.js: https://github.com/jquery/jquery-ui/tree/master/ui/i18n -->
+    <script src="../static/js/i18n/datepicker-ko.js"  th:src="@{${'js/i18n/datepicker-' + #locale.language + '.js'}}"></script>
+    <script src="../static/js/i18n/datepicker-ko.js"  th:src="@{${'js/i18n/datepicker-' + #locale.language + '-' + #locale.country + '.js'}}"></script>
+    <script src="../static/js/common-ui.js" th:src="@{js/common-ui.js}"></script>
+    <script src="../static/js/sign-up-next.js" th:src="@{js/sign-up-next.js}"></script>
+</head>
+<body>
+<div class="hvcenter shadow-box sign-up-next-box">
+    <div class="under-space">
+        <img class="logo" src="../static/img/logo32.png" th:src="@{img/logo32.png}"/>
+        <span class="title l-text" th:text="#{sign-up-next.title}">Create your account</span>
+    </div>
+    <div class="description m-text" th:text="#{sign-up-next.description}">
+        All fields are optional.
+    </div>
+    <form action="#" th:action="@{/sign-up-next}" method="post" th:object="${signUpNextForm}">
+        <div class="ani-input-group" th:class="'ani-input-group' + (${#strings.isEmpty(signUpNextForm.hp)} ? '' : ' not-empty')">
+            <input class="ani-input-ctrl" type="tel" id="hp" th:field="*{hp}" autofocus />
+            <label class="ani-input-label" for="hp" th:text="#{sign-up-next.hp}">Cell Phone Number</label>
+        </div>
+        <div th:unless="${#fields.hasErrors('hp')}" class="tip s-text" th:text="#{sign-up-next.hp.tip}">
+            Enter your cell phone number without '-'
+        </div>
+<!--/*/ <div th:if="${#fields.hasErrors('hp')}" class="err-tip s-text" th:errors="*{hp}">
+            error message.
+        </div> /*/-->
+        <div class="ani-input-group" th:class="'ani-input-group' + (${#strings.isEmpty(signUpNextForm.birth)} ? '' : ' not-empty')">
+            <input class="ani-input-ctrl" type="text" autocomplete="off" id="birth" th:field="*{birth}" />
+            <label class="ani-input-label" for="birth" th:text="#{sign-up-next.birth}">Date of Birth</label>
+        </div>
+        <div th:unless="${#fields.hasErrors('birth')}" class="tip s-text" th:text="#{sign-up-next.birth.tip}">
+            Enter your date of birth.
+        </div>
+<!--/*/ <div th:if="${#fields.hasErrors('birth')}" class="err-tip s-text" th:errors="*{birth}">
+            error message.
+        </div> /*/-->
+        <div class="right">
+            <input class="sign-up-next-btn color-btn" type="submit" value="Complete" th:value="#{sign-up-next.complete}" />
+        </div>
+        <input type="hidden" name="email" th:value="*{email}" />
+    </form>
+</div>
+</body>
+</html>

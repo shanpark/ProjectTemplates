@@ -1,0 +1,38 @@
+.login-box {
+    width: 370px;
+    padding: 47px 40px 30px;
+}
+
+.logo {
+    vertical-align: -6px;
+    margin-right: 5px;
+}
+
+.title-box {
+    border-bottom: 1px solid black;
+    padding-bottom: 8px;
+    margin-bottom: 16px;
+}
+
+.title {
+    color: #00336f;
+}
+
+.sign-up-btn {
+    padding: 2px 7px;
+    font-size: 11px;
+}
+
+.login-btn {
+    min-width: 90px;
+    padding: 7px 15px;
+    font-size: 17px;
+}
+
+.under-space {
+    margin-bottom: 16px;
+}
+
+.copyright {
+    color: #808080;
+}

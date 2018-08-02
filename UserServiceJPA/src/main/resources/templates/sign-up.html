@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <link rel="stylesheet" type="text/css" href="../static/css/common.css" th:href="@{css/common.css}" />
+    <link rel="stylesheet" type="text/css" href="../static/css/common-ui.css" th:href="@{css/common-ui.css}" />
+    <link rel="stylesheet" type="text/css" href="../static/css/sign-up.css" th:href="@{css/sign-up.css}" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="../static/js/common-ui.js" th:src="@{js/common-ui.js}"></script>
+    <script src="../static/js/sign-up.js" th:src="@{js/sign-up.js}"></script>
+</head>
+<body>
+<div class="hvcenter shadow-box sign-up-box">
+    <div class="under-space">
+        <img class="logo" src="../static/img/logo32.png" th:src="@{img/logo32.png}"/>
+        <span class="title l-text" th:text="#{sign-up.title}">Create your account</span>
+    </div>
+    <div class="description m-text" th:text="#{sign-up.description}">
+        All fields are required.
+    </div>
+    <!--/*/
+    <div class="err-color s-text under-space" th:if="${(param.error != null)}" th:text="#{${param.error}}">
+        Oops! Sorry. Unknown error occurred. Please try again.
+    </div>
+    /*/-->
+    <form action="#" th:action="@{/sign-up}" method="post" th:object="${signUpForm}">
+        <div class="row-stretch-block">
+            <div class="ani-input-group stretch-item" th:class="'ani-input-group stretch-item' + (${#strings.isEmpty(signUpForm.email)} ? '' : ' not-empty')">
+                <input class="ani-input-ctrl" type="email" id="email" th:field="*{email}" autofocus />
+                <label class="ani-input-label" for="email" th:text="#{sign-up.email}">E-mail</label>
+            </div>&nbsp;
+            <div class="col-stretch-block">
+                <div class="stretch-item"> </div>
+                <input class="email-dup-check-btn color-btn" type="button" id="email-dup-check" value="Duplicate Check" th:value="#{sign-up.email-dup-check}" />
+            </div>
+        </div>
+        <div th:unless="${#fields.hasErrors('email')}" class="tip s-text" id="email-tip" th:text="#{sign-up.email.tip}">
+            Enter your e-mail address. You'll need to confirm that this e-mail belongs to you.
+        </div>
+<!--/*/
+        <div th:if="${#fields.hasErrors('email')}" class="tip s-text" th:errorClass="err-tip" id="email-tip" th:errors="*{email}">
+            error message.
+        </div>
+/*/-->
+        <div class="row-stretch-block">
+            <div class="stretch-item half-width">
+                <div class="ani-input-group" th:class="'ani-input-group' + (${#strings.isEmpty(signUpForm.password)} ? '' : ' not-empty')">
+                    <input class="ani-input-ctrl" type="password" id="password" th:field="*{password}" />
+                    <label class="ani-input-label" for="password" th:text="#{sign-up.password}">Password</label>
+                </div>
+                <div th:unless="${#fields.hasErrors('password')}" class="tip s-text" th:text="#{sign-up.password.tip}">
+                    Enter a password.
+                </div>
+<!--/*/         <div th:if="${#fields.hasErrors('password')}" class="err-tip s-text" th:errors="*{password}">
+                    error message.
+                </div> /*/-->
+            </div>&nbsp;
+            <div class="stretch-item half-width">
+                <div class="ani-input-group" th:class="'ani-input-group' + (${#strings.isEmpty(signUpForm.passwordConfirm)} ? '' : ' not-empty')">
+                    <input class="ani-input-ctrl" type="password" id="passwordConfirm" th:field="*{passwordConfirm}" />
+                    <label class="ani-input-label" for="passwordConfirm" th:text="#{sign-up.password-confirm}">Confirm password</label>
+                </div>
+                <div th:unless="${#fields.hasErrors('passwordConfirm')}" class="tip s-text" th:text="#{sign-up.password-confirm.tip}">
+                    Enter the same password again.
+                </div>
+<!--/*/         <div th:if="${#fields.hasErrors('passwordConfirm')}" class="err-tip s-text" th:errors="*{passwordConfirm}">
+                    error message.
+                </div> /*/-->
+            </div>
+        </div>
+        <div class="row-stretch-block">
+            <div class="stretch-item">
+                <div class="ani-input-group" th:class="'ani-input-group' + (${#strings.isEmpty(signUpForm.firstName)} ? '' : ' not-empty')">
+                    <input class="ani-input-ctrl" type="text" id="firstName" th:field="*{firstName}" />
+                    <label class="ani-input-label" for="firstName" th:text="#{sign-up.first-name}">First name</label>
+                </div>
+                <div th:unless="${#fields.hasErrors('firstName')}" class="tip s-text" th:text="#{sign-up.first-name.tip}">
+                    Enter first name.
+                </div>
+<!--/*/         <div th:if="${#fields.hasErrors('firstName')}" class="err-tip s-text" th:errors="*{firstName}">
+                    error message.
+                </div> /*/-->
+            </div>&nbsp;
+            <div class="stretch-item">
+                <div class="ani-input-group" th:class="'ani-input-group' + (${#strings.isEmpty(signUpForm.lastName)} ? '' : ' not-empty')">
+                    <input class="ani-input-ctrl" type="text" id="lastName" th:field="*{lastName}" />
+                    <label class="ani-input-label" for="lastName" th:text="#{sign-up.last-name}">Last name</label>
+                </div>
+                <div th:unless="${#fields.hasErrors('lastName')}" class="tip s-text" th:text="#{sign-up.last-name.tip}">
+                    Enter last name.
+                </div>
+<!--/*/         <div th:if="${#fields.hasErrors('lastName')}" class="err-tip s-text" th:errors="*{lastName}">
+                    error message.
+                </div> /*/-->
+            </div>
+        </div>
+        <div class="row-stretch-block">
+            <div class="ani-input-group stretch-item" th:class="'ani-input-group stretch-item' + (${#strings.isEmpty(signUpForm.nickname)} ? '' : ' not-empty')">
+                <input class="ani-input-ctrl" type="text" id="nickname" th:field="*{nickname}" />
+                <label class="ani-input-label" for="nickname" th:text="#{sign-up.nickname}">Nickname</label>
+            </div>&nbsp;
+            <div class="col-stretch-block">
+                <div class="stretch-item"> </div>
+                <input class="nickname-dup-check-btn color-btn" type="button" id="nickname-dup-check" value="Duplicate Check" th:value="#{sign-up.nickname-dup-check}" />
+            </div>
+        </div>
+        <div th:unless="${#fields.hasErrors('nickname')}" class="tip s-text" id="nickname-tip" th:text="#{sign-up.nickname.tip}">
+            Enter your nickname. Nickname is visible to others.
+        </div>
+<!--/*/
+        <div th:if="${#fields.hasErrors('nickname')}" class="tip s-text" th:errorClass="err-tip" id="nickname-tip" th:errors="*{nickname}">
+            error message.
+        </div>
+/*/-->
+        <div class="right">
+            <input class="sign-up-btn color-btn" type="submit" value="Sign up" th:value="#{sign-up.next}" />
+        </div>
+    </form>
+</div>
+</body>
+</html>

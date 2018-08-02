@@ -6,8 +6,7 @@
 - User Log Out
 - Access control by Spring security
 - View rendering by Thymeleaf
-- MyBatis basic sample
-- Custom Annotation Validator (Spring Validator)
+- Spring Data JPA
 - Centered box UI (HTML, CSS)
 - Animated Input Field (HTML, CSS, JQuery)
 - JQuery UI (Datepicker)
@@ -17,7 +16,7 @@
 - Spring WebMVC
 - Spring Security
 - Thymeleaf (View Engine)
-- MyBatis Configuration (MariaDB)
+- Spring Data JPA
 - Logback Configuration
 - HTML5, CSS, JQuery
 
@@ -53,7 +52,7 @@ CREATE TABLE `User` (
   PRIMARY KEY (`uid`),
   UNIQUE KEY `email_UNIQUE` (`email`),
   UNIQUE KEY `nickname_UNIQUE` (`nickname`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8
 
 CREATE TABLE `UserRole` (
   `uid` bigint(20) NOT NULL,

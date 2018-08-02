@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" type="text/css" href="../static/css/common.css" th:href="@{css/common.css}" />
+    <link rel="stylesheet" type="text/css" href="../static/css/common-ui.css" th:href="@{css/common-ui.css}" />
+    <link rel="stylesheet" type="text/css" href="../static/css/login.css" th:href="@{css/login.css}" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="../static/js/common-ui.js" th:src="@{js/common-ui.js}"></script>
+    <script src="../static/js/sign-up.js" th:src="@{js/sign-up.js}"></script>
+</head>
+<body>
+    <div class="hvcenter shadow-box login-box">
+        <div class="row-stretch-block under-space">
+            <img class="logo" src="../static/img/logo32.png" th:src="@{img/logo32.png}"/>
+            <span class="title l-text stretch-item" th:text="#{login.title}">Log in</span>
+            <div class="col-stretch-block">
+                <div class="stretch-item"> </div>
+                <a class="sign-up-btn color-btn" href="sign-up" th:text="#{login.sign-up}" >Sign up for account</a>
+            </div>
+        </div>
+        <!--/*/
+        <div class="err-color s-text under-space" th:if="${(param.error != null) && (session['SPRING_SECURITY_LAST_EXCEPTION'] != null)}" th:text=#{__${session['SPRING_SECURITY_LAST_EXCEPTION'].message}__}>
+            Sorry, an unknown error has occurred. Please try again.
+        </div>
+        /*/-->
+        <form action="#" th:action="@{/authenticate}" method="post" th:object="${loginForm}">
+            <div class="ani-input-group under-space">
+                <input class="ani-input-ctrl" type="email" id="email" th:field="*{email}" autofocus />
+                <label class="ani-input-label" for="email" th:text="#{login.email}">E-mail</label>
+            </div>
+            <div class="ani-input-group under-space">
+                <input class="ani-input-ctrl" type="password" id="password" th:field="*{password}" />
+                <label class="ani-input-label" for="password" th:text="#{login.password}">Password</label>
+            </div>
+            <div class="right under-space">
+                <input class="login-btn color-btn" type="submit" value="Log in" th:value="#{login.login}" />
+            </div>
+            <!--<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
+        </form>
+        <div class="row-stretch-block under-space">
+            <div class="stretch-item">
+                <a class="s-link" href="/forgotEmail" th:text="#{login.forgot-email}">Forgot e-mail?</a>
+            </div>
+            <div class="stretch-item right">
+                <a class="s-link" href="/forgotPassword" th:text="#{login.forgot-password}">Forgot password?</a>
+            </div>
+        </div>
+        <div class="copyright s-text right" th:text="#{copyright}">
+            ©2018 Company
+        </div>
+    </div>
+</body>
+</html>

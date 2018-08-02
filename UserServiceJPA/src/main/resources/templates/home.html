@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>User Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" type="text/css" href="../static/css/common.css" th:href="@{css/common.css}" />
+    <link rel="stylesheet" type="text/css" href="../static/css/common-ui.css" th:href="@{css/common-ui.css}" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="../static/js/common-ui.js" th:src="@{js/common-ui.js}"></script>
+</head>
+<body>
+<h1>Welcome !! </h1>
+<div sec:authorize="isAuthenticated()">
+    Name: <span sec:authentication="name">SomeName</span><br />
+    Principal: <span sec:authentication="principal">PrincipalString</span><br />
+    Principal.email: <span sec:authentication="principal.email">2</span><br />
+    HasRole(USER): <span sec:authorize="hasRole('ROLE_USER')">YES</span><br />
+    HasRole(ADMIN): <span sec:authorize="hasRole('ROLE_ADMIN')">YES</span>
+</div>
+<form action="#" th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout" />
+</form>
+</body>
+</html>
