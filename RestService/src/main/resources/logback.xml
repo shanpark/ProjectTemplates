@@ -2,7 +2,7 @@
 <configuration>
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
 
-    <property name="LOG_NAME" value="UserService"/>
+    <property name="LOG_NAME" value="RestService"/>
     <property name="LOG_DIR" value="logs" />
 
     <!--<appender name="dailyRollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
