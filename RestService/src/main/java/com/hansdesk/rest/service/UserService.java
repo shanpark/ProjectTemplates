@@ -3,9 +3,7 @@ package com.hansdesk.rest.service;
 import com.hansdesk.rest.mapper.UserMapper;
 import com.hansdesk.rest.security.UserPasswordEncoder;
 import com.hansdesk.rest.vo.UserVO;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

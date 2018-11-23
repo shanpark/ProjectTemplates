@@ -1,4 +1,4 @@
-# RestService with JWT
+# RestService with JWT (Java Web Token)
 
 ### Sample for ...
 - RESTful API (JSON)
