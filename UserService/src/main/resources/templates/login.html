@@ -35,7 +35,9 @@
                 <input class="ani-input-ctrl" type="password" id="password" th:field="*{password}" />
                 <label class="ani-input-label" for="password" th:text="#{login.password}">Password</label>
             </div>
-            <div class="right under-space">
+            <div class="row-stretch-block under-space">
+                <input type="checkbox" id="saveId" th:field="*{saveId}" checked />
+                <label for="saveId" th:text="#{login.saveId}">Save E-mail</label><span class="stretch-item"> </span>
                 <input class="login-btn color-btn" type="submit" value="Log in" th:value="#{login.login}" />
             </div>
             <!--<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->

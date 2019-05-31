@@ -9,14 +9,12 @@ import com.hansdesk.user.security.UserPasswordEncoder;
 import com.hansdesk.user.vo.SignUpUserVO;
 import com.hansdesk.user.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class UserService {
@@ -65,6 +63,19 @@ public class UserService {
     }
 
     public Authentication authenticate(String email, String password) {
+        // 이 코드는 테스트를 위해서 무조건 인증을 성공하도록 하는 코드이며 실제 코드는 아래 주석처리된 코드와 비슷한 로직을 갖게 될 것이다.
+        UserVO userVO = new UserVO();
+        userVO.setPassword(null); // password값을 저장해서는 안된다.
+        userVO.setEmail(email);
+        userVO.setNickname("Nickname");
+        userVO.setFirstName("FirstName");
+        userVO.setLastName("LastName");
+
+        ArrayList<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(Role.ROLE_USER.name()));
+
+        return new UsernamePasswordAuthenticationToken(userVO, null, authorities);
+/*
         UserVO userVO = userMapper.getUserByEmail(email);
         if (userVO != null) {
             if (!passwordEncoder.matches(password, userVO.getPassword()))
@@ -82,6 +93,7 @@ public class UserService {
         }
 
         throw new BadCredentialsException("login.no-user-found");
+ */
     }
 
     public boolean isUniqueEmail(String email) {

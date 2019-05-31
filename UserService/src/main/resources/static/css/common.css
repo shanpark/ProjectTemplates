@@ -11,11 +11,13 @@ body {
     font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
 }
 
+/* 브라우저 특유의 컨트롤 모양을 제거하기 위함이지만 체크박스같은 컨트롤은 완전 사라지기 때문에 필요한 컨트롤에 직접 지정해 주도록 하자.
 input {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
 }
+*/
 
 .err-color {
     color: #df6600;

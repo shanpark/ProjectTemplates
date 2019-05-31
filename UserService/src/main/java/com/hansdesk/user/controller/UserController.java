@@ -31,6 +31,12 @@ public class UserController {
     @Autowired
     private MessageSource messageSource;
 
+    /* 이 mapping은 root가 홈이 아닌 경우에 필요하다. */
+    @RequestMapping("/")
+    public String root() {
+        return "redirect:/home";
+    }
+
     @GetMapping("/sign-up")
     public String signUp(@ModelAttribute("signUpForm") SignUpForm signUpForm, Model model) {
         // 이미 로그인 상태이면 /home으로 redirect 시킨다.
@@ -82,10 +88,15 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String login(@ModelAttribute("loginForm") LoginForm loginForm, Model model) {
+    public String login(@ModelAttribute("loginForm") LoginForm loginForm,
+                        @CookieValue(value="savedId", required=false) String savedId,
+                        @CookieValue(value="saveId", required=false) Boolean saveId) {
         // 이미 로그인 상태이면 /home으로 redirect 시킨다.
         if (Utility.isAuthenticated())
             return "redirect:/home";
+
+        loginForm.setSaveId(saveId); // 쿠키에 저장된 id값이 있으면 내려보내서 로그인 창에 표시되도록 한다.
+        loginForm.setEmail(savedId); // 이 두 가지 cookie값은 항상 같이 저장되고 같이 삭제되므로 체크 상태를 검사할 필요가 없다.
 
         return "login";
     }

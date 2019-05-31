@@ -15,6 +15,8 @@ public class LoginForm {
     @Size(min = 1)
     private String password;
 
+    private Boolean saveId;
+
     public String getEmail() {
         return email;
     }
@@ -29,5 +31,13 @@ public class LoginForm {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Boolean getSaveId() {
+        return saveId;
+    }
+
+    public void setSaveId(Boolean saveId) {
+        this.saveId = saveId;
     }
 }
