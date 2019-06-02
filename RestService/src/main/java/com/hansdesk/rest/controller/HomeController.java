@@ -18,7 +18,7 @@ public class HomeController {
      * @param requestDto {"data":"hello"} 과 같은 JSON 형태의 요청을 받아서 RequestDto 객체로 받는다.
      * @return ResponseDto 객체를 반환하면 {"data":"hello", "response":"OK"} 형태의 JSON 포맷 응답을 내려보낸다.
      */
-    @RequestMapping(value="/home", method=RequestMethod.POST)
+    @PostMapping("/home")
     public ResponseDto home(@RequestBody RequestDto requestDto) {
         UserVO userVO = (UserVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 

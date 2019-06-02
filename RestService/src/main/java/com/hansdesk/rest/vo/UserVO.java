@@ -1,7 +1,5 @@
 package com.hansdesk.rest.vo;
 
-import com.hansdesk.rest.constant.UserStatus;
-
 import java.util.Date;
 
 public class UserVO {
@@ -14,7 +12,6 @@ public class UserVO {
     private String nickname;
     private String hp;
     private Date birth;
-    private UserStatus status;
     private Date modified;
     private Date created;
 
@@ -80,14 +77,6 @@ public class UserVO {
 
     public void setBirth(Date birth) {
         this.birth = birth;
-    }
-
-    public UserStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(UserStatus status) {
-        this.status = status;
     }
 
     public Date getModified() {
