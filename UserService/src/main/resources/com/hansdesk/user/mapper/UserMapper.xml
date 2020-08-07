@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.hansdesk.user.mapper.UserMapper">
-    <insert id="registerSignUpUser">
-        INSERT INTO SignUpUser (email, password, firstName, lastName, nickname)
-        VALUES(#{email}, #{password}, #{firstName}, #{lastName}, #{nickname})
-        ON DUPLICATE KEY UPDATE
-        password = #{password}, firstName = #{firstName}, lastName = #{lastName}, nickname = #{nickname}
-    </insert>
+<insert id="registerSignUpUser">
+    INSERT INTO SignUpUser (email, password, firstName, lastName, nickname)
+    VALUES(#{email}, #{password}, #{firstName}, #{lastName}, #{nickname})
+    ON DUPLICATE KEY UPDATE
+    password = #{password}, firstName = #{firstName}, lastName = #{lastName}, nickname = #{nickname}
+</insert>
 
-    <select id="getSignUpUser" resultType="com.hansdesk.user.vo.SignUpUserVO" >
-        SELECT email, password, firstName, lastName, nickname
-        FROM SignUpUser
-        WHERE email = #{email}
-    </select>
+<select id="getSignUpUser" resultType="com.hansdesk.user.vo.SignUpUserVO" >
+    SELECT email, password, firstName, lastName, nickname
+    FROM SignUpUser
+    WHERE email = #{email}
+</select>
 
-    <delete id="deleteSignUpUser" >
-        DELETE FROM SignUpUser
-        WHERE email = #{email}
-    </delete>
+<delete id="deleteSignUpUser" >
+    DELETE FROM SignUpUser
+    WHERE email = #{email}
+</delete>
 
-    <insert id="registerUser" useGeneratedKeys="true" keyProperty="uid">
-        INSERT INTO User (email, password, firstName, lastName, nickname, hp, birth, status)
-        VALUES(#{email}, #{password}, #{firstName}, #{lastName}, #{nickname}, #{hp}, #{birth}, #{status})
-    </insert>
+<insert id="registerUser" useGeneratedKeys="true" keyProperty="uid">
+    INSERT INTO User (email, password, firstName, lastName, nickname, hp, birth, status)
+    VALUES(#{email}, #{password}, #{firstName}, #{lastName}, #{nickname}, #{hp}, #{birth}, #{status})
+</insert>
 
-    <select id="getUserByEmail" resultType="com.hansdesk.user.vo.UserVO" >
-        SELECT uid, email, password, firstName, lastName, nickname, birth, hp, modified, created
-        FROM User
-        WHERE email = #{email}
-    </select>
+<select id="getUserByEmail" resultType="com.hansdesk.user.vo.UserVO" >
+    SELECT uid, email, password, firstName, lastName, nickname, birth, hp, modified, created
+    FROM User
+    WHERE email = #{email}
+</select>
 
-    <select id="getUserRoleByUid" resultType="String" >
-        SELECT role
-        FROM UserRole
-        WHERE uid = #{uid}
-    </select>
+<select id="getUserRoleByUid" resultType="String" >
+    SELECT role
+    FROM UserRole
+    WHERE uid = #{uid}
+</select>
 
-    <insert id="addUserRole">
-        INSERT INTO UserRole (role, uid)
-        VALUES(#{role}, #{uid})
-    </insert>
+<insert id="addUserRole">
+    INSERT INTO UserRole (role, uid)
+    VALUES(#{role}, #{uid})
+</insert>
 
-    <select id="getCount" resultType="int" >
-        SELECT count(${column})
-        FROM ${table}
-        WHERE ${column} = #{value}
-    </select>
+<select id="getCount" resultType="int" >
+    SELECT count(${column})
+    FROM ${table}
+    WHERE ${column} = #{value}
+</select>
 
 </mapper>

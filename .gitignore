@@ -1,6 +1,5 @@
-
-# Created by https://www.toptal.com/developers/gitignore/api/windows,linux,macos,eclipse,intellij+all,visualstudiocode,gradle,maven,java,java-web,vuejs
-# Edit at https://www.toptal.com/developers/gitignore?templates=windows,linux,macos,eclipse,intellij+all,visualstudiocode,gradle,maven,java,java-web,vuejs
+# Created by https://www.toptal.com/developers/gitignore/api/windows,macos,linux,eclipse,intellij+all,visualstudiocode,vuejs,java-web,java,gradle,maven
+# Edit at https://www.toptal.com/developers/gitignore?templates=windows,macos,linux,eclipse,intellij+all,visualstudiocode,vuejs,java-web,java,gradle,maven
 
 ### Eclipse ###
 .metadata
@@ -306,7 +305,4 @@ gradle-app.setting
 ### Gradle Patch ###
 **/build/
 
-### Custom
-logs/
-
-# End of https://www.toptal.com/developers/gitignore/api/windows,linux,macos,eclipse,intellij+all,visualstudiocode,gradle,maven,java,java-web,vuejs
+# End of https://www.toptal.com/developers/gitignore/api/windows,macos,linux,eclipse,intellij+all,visualstudiocode,vuejs,java-web,java,gradle,maven

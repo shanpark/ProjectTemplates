@@ -11,3 +11,5 @@ Project Templates for Personal Use
  - Spring Boot + Spring WebMVC + Spring Security + Thymeleaf(HTML, CSS, JQuery) + Spring Data JPA + Logback. 
 ### RestService
  - Spring Boot + Spring WebMVC + Spring Security + JWT + MyBatis + Logback. 
+### Vue.js-Template
+ - Spring Boot + Spring WebMVC + Spring Security + JWT + Logback + Vue.js. 

@@ -1,6 +1,6 @@
 package com.hansdesk.template.dto;
 
-public class AuthDto {
+public class AuthReqDto {
     private String email;
     private String password;
 

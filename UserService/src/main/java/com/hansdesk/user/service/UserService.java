@@ -16,13 +16,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
+@Autowired
+private UserPasswordEncoder passwordEncoder;
 @Service
 public class UserService {
 
     @Autowired
     private UserMapper userMapper;
-    @Autowired
-    private UserPasswordEncoder passwordEncoder;
 
     public boolean registerSignUpUser(SignUpForm signUpForm) {
         try {
