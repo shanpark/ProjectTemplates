@@ -13,3 +13,5 @@ Project Templates for Personal Use
  - Spring Boot + Spring WebMVC + Spring Security + JWT + MyBatis + Logback. 
 ### Vue.js-Template
  - Spring Boot + Spring WebMVC + Spring Security + JWT + Logback + Vue.js. 
+### RedisService
+ - Spring Boot + Redis(Lettuce)
