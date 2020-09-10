@@ -1,5 +1,6 @@
 package com.example.redis;
 
+import com.example.redis.redis.MessagePublisher;
 import com.example.redis.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -9,6 +10,8 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 public class RedisRunner implements ApplicationRunner {
 
@@ -17,6 +20,9 @@ public class RedisRunner implements ApplicationRunner {
 
     @Autowired
     RedisTemplate<String, Object> redisTemplate;
+
+    @Autowired
+    MessagePublisher messagePublisher;
 
     @Override
     public void run(ApplicationArguments args) {
@@ -28,6 +34,7 @@ public class RedisRunner implements ApplicationRunner {
         String message = values.get("message");
         System.out.println(message);
 
+        // UserVo 객체를 키값으로 set/get 하는 예제이다.
         UserVo userVo = new UserVo();
         userVo.setName("홍길동");
         userVo.setEmail("honggildong@gmail.com");
@@ -35,6 +42,11 @@ public class RedisRunner implements ApplicationRunner {
         ValueOperations<String, Object> valuesForObj = redisTemplate.opsForValue();
         valuesForObj.set("user", userVo);
         userVo = (UserVo) valuesForObj.get("user");
-        System.out.println("name: " + userVo.getName() + ", email: " + userVo.getEmail());
+        if (userVo != null)
+            System.out.println("name: " + userVo.getName() + ", email: " + userVo.getEmail());
+
+        // Redis Pub/Sub 예제이다.
+        message = "Message " + UUID.randomUUID();
+        messagePublisher.publish(message); // RedisMessageSubscriber의 onMessage()가 호출될 것이다.
     }
 }
