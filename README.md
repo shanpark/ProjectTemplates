@@ -1,17 +1,35 @@
-# Project Templates 
+# Project Templates
+
 Project Templates for Personal Use
 
 ### SpringBootNettyTlsClient
- - Spring Boot + Logback + Netty Client + TLS + Private Event System.
+
+- Spring Boot + Logback + Netty Client + TLS + Private Event System.
+
 ### SpringBootNettyTlsServer
- - Spring Boot + Logback + Netty Server + TLS + Private Event System.
+
+- Spring Boot + Logback + Netty Server + TLS + Private Event System.
+
 ### UserService
- - Spring Boot + Spring WebMVC + Spring Security + Thymeleaf(HTML, CSS, JQuery) + MyBatis + Logback. 
+
+- Spring Boot + Spring WebMVC + Spring Security + Thymeleaf(HTML, CSS, JQuery) + MyBatis + Logback.
+
 ### UserServiceJPA
- - Spring Boot + Spring WebMVC + Spring Security + Thymeleaf(HTML, CSS, JQuery) + Spring Data JPA + Logback. 
+
+- Spring Boot + Spring WebMVC + Spring Security + Thymeleaf(HTML, CSS, JQuery) + Spring Data JPA + Logback.
+
 ### RestService
- - Spring Boot + Spring WebMVC + Spring Security + JWT + MyBatis + Logback. 
+
+- Spring Boot + Spring WebMVC + Spring Security + JWT + MyBatis + Logback.
+
 ### Vue.js-Template
- - Spring Boot + Spring WebMVC + Spring Security + JWT + Logback + Vue.js. 
+
+- Spring Boot + Spring WebMVC + Spring Security + JWT + Logback + Vue.js.
+
 ### RedisService
- - Spring Boot + Redis(Lettuce)
+
+- Spring Boot + Redis(Lettuce)
+
+### multidb
+
+- Spring Boot + MyBatis (Multi datasource configuration)

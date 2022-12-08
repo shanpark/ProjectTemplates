@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="shanpark.multidb.mapper.db1.TestMapper1" >
+
+    <select id="getDate1" resultType="shanpark.multidb.vo.TestVo">
+        SELECT SYSDATE as DUMMY_DATE, 'Hello1' as DUMMY_DATA
+        FROM DUAL
+    </select>
+
+</mapper>
