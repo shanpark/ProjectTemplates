@@ -22,7 +22,7 @@ public class Main implements CommandLineRunner {
         TestVo date1 = testMapper1.getDate1();
         TestVo date2 = testMapper2.getDate2();
 
-        log.info("date1: {}, {}", date1.getDummyDate(), date1.getDummyData());
-        log.info("date2: {}, {}", date2.getDummyDate(), date2.getDummyData());
+        log.info("date1: {}, {}, {}", date1.getDummyDate(), date1.getDummyData(), date1.getCount());
+        log.info("date2: {}, {}, {}", date2.getDummyDate(), date2.getDummyData(), date2.getCount());
     }
 }

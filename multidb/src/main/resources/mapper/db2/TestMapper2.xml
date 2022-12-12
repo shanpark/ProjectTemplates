@@ -3,8 +3,8 @@
 <mapper namespace="shanpark.multidb.mapper.db2.TestMapper2" >
 
     <select id="getDate2" resultType="shanpark.multidb.vo.TestVo">
-        SELECT SYSDATE as DUMMY_DATE, 'Hello2' as DUMMY_DATA
-        FROM DUAL
+        SELECT SYSDATE AS DUMMY_DATE, 'HELLO2' AS DUMMY_DATA, COUNT(*) AS COUNT
+        FROM ZMSHMSGT
     </select>
 
 </mapper>

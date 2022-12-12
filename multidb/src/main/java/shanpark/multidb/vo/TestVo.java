@@ -8,4 +8,5 @@ import java.util.Date;
 public class TestVo {
     private Date dummyDate;
     private String dummyData;
+    private Integer count;
 }
