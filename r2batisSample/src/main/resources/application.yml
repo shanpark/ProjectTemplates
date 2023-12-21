@@ -1,0 +1,30 @@
+# DB가 하나라서 ConnectionFactory를 하나만 설정할 때는 아래와 같이 설정 해주면 된다.
+# 이렇게 ConnectionFactory가 1개만 사용하는 경우에는 TransactionManager나 기타 옵션들도 모두 default로 하나가 생성되어 사용된다.
+# 이런 경우 커스터마이징 이슈가 없다면 코드에 있는 R2batisConfig 클래스도 필요없다. (대부분 필요 없을 것이다)
+
+# DB가 여러 개라서 ConnectionFactory가 여러 개 필요한 경우라면 @Configuration bean에서 각 ConnectionFactory bean을 따로
+# 등록해줘야 한다. 이 예제에서는 R2batisConfig 에서 등록한 ConnectionFactory bean을 사용한다.
+# TransactionManager를 사용할 때도 해당 ConnectionFactory로부터 생성된 TransactionManager bean을 따로따로 만들어줘야 하며
+# @Transactional 어노테이션에서 사용될 transactionManager bean의 이름을 지정해줘야 한다.
+
+spring:
+  r2dbc:
+# for Oracle
+#    url: r2dbc:pool:oracle://192.168.1.156:1521/freepdb1
+#    username: TestDB
+#    password: Iotree123!@#
+
+# for MariaDB
+#    url: r2dbc:pool:mariadb://192.168.1.20:3307/TestDB
+#    username: tester
+#    password: Tester123!@#
+
+# for MySQL
+#    url: r2dbc:pool:mysql://192.168.1.156:3308/TestDB?serverZoneId=Asia/Seoul # 실제 서버의 타임존은 UTC 이다. 일단 테슽만 되도록 설정했으나 잘못된 설정이다.
+#    username: tester
+#    password: Tester123!@#
+
+r2batis:
+  mapper-locations: classpath:mapper/**/*.xml
+  configuration:
+    mapUnderscoreToCamelCase: true

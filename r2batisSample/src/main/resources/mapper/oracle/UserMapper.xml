@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapper namespace="shanpark.r2batissample.mapper.UserMapper" >
+
+    <select id="getUserCount" resultType="java.lang.Long" databaseId="oracle">
+        SELECT COUNT(*)
+        FROM "USER"
+    </select>
+
+    <select id="getUserCountWithNameStarting" resultType="java.lang.Long" databaseId="oracle">
+        SELECT COUNT(*)
+        FROM "USER"
+        <where>
+            <if test="prefix != null">
+                NAME LIKE CONCAT(:prefix, '%')
+            </if>
+        </where>
+    </select>
+
+    <select id="getUser" resultType="shanpark.r2batissample.vo.UserVo" databaseId="oracle">
+        SELECT *
+        FROM "USER"
+        WHERE "ID" = :userId
+    </select>
+
+    <select id="getUserById" resultType="shanpark.r2batissample.vo.UserVo" databaseId="oracle">
+        SELECT *
+        FROM "USER"
+        <where>
+            <choose>
+                <when test="userId == 21L">
+                    "ID" = 21
+                </when>
+                <when test="userId == 22">
+                    "ID" = 22
+                </when>
+                <when test="userId == 23">
+                    "ID" = 23
+                </when>
+                <when test="userId == 24">
+                    "ID" = 24
+                </when>
+                <when test="userId == 25">
+                    "ID" = 25
+                </when>
+                <otherwise>
+                    "ID" = 30
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+    <select id="getUserListByIds" resultType="shanpark.r2batissample.vo.UserVo" databaseId="oracle">
+        SELECT *
+        FROM "USER"
+        <where>
+            <if test="!userIds.isEmpty()">
+                "ID" IN
+                    <foreach collection="userIds" item="userId" separator="," open="(" close=")">
+                        :userId
+                    </foreach>
+            </if>
+            OR 1 = 0
+        </where>
+        ORDER BY "ID" ASC
+    </select>
+
+    <select id="getAllUserList" resultType="shanpark.r2batissample.vo.UserVo" databaseId="oracle">
+        SELECT *
+        FROM "USER"
+    </select>
+
+    <select id="getUserWithNameStarting" resultType="shanpark.r2batissample.vo.UserVo" databaseId="oracle">
+        SELECT *
+        FROM "USER"
+        <where>
+            <if test="prefix != null">
+                NAME LIKE CONCAT(:prefix, '%')
+            </if>
+        </where>
+    </select>
+
+    <insert id="insertUserAndGetKeyAndInsertTime" useGeneratedKeys="true" keyColumn="id" resultType="java.lang.Long" databaseId="oracle">
+        <selectKey keyProperty="userVo.inserted1" resultType="java.util.Date" order="BEFORE">
+            SELECT SYSDATE
+            FROM DUAL
+        </selectKey>
+        <selectKey keyProperty="userVo.inserted2" resultType="java.util.Date" order="BEFORE">
+            SELECT :userVo.inserted1 + INTERVAL '1' SECOND
+            FROM DUAL
+        </selectKey>
+
+        INSERT INTO "USER"
+            (NAME, USERNAME, EMAIL)
+        VALUES
+            (:name, :username, :email)
+
+        <selectKey keyProperty="userVo.inserted3" resultType="java.util.Date" order="after">
+            SELECT :userVo.inserted2 + INTERVAL '1' SECOND
+            FROM DUAL
+        </selectKey>
+        <selectKey keyProperty="userVo.inserted4" resultType="java.util.Date" order="AFTER">
+            SELECT :userVo.inserted3 + INTERVAL '1' SECOND
+            FROM DUAL
+        </selectKey>
+    </insert>
+
+    <!--오라클에서 multi row insert를 수행하려면 시퀀스의 NEXTVAL을 여러 번 사용해도 같은 값이 나온다.
+        하나의 SQL에서는 하나의 NEXTVAL 값만 계속 나오기 때문이다. 따라서 multi row insert를 할 때는
+        반드시 Trigger를 사용해야 한다. Trigger는 DB에 설정되어 있다.
+    -->
+    <insert id="insertUserList" databaseId="oracle"> <!-- default resultType is Long -->
+        INSERT ALL
+        <foreach item="item" collection="userList" >
+            INTO "USER" (NAME, USERNAME, EMAIL)
+            VALUES (:item.name, :item.username, :item.email)
+        </foreach>
+        SELECT *
+        FROM DUAL
+    </insert>
+
+    <update id="updateUserAddressWithNameStarting" databaseId="oracle">
+        <selectKey keyProperty="userVo.inserted1" resultType="java.util.Date" order="BEFORE">
+            SELECT SYSDATE
+            FROM DUAL
+        </selectKey>
+
+        UPDATE "USER"
+        <set>
+            ADDRESS = :address
+        </set>
+        WHERE NAME LIKE CONCAT(:prefix, '%')
+
+        <selectKey keyProperty="userVo.inserted2" resultType="java.util.Date" order="BEFORE">
+            SELECT :userVo.inserted1 + INTERVAL '1' SECOND
+            FROM DUAL
+        </selectKey>
+    </update>
+
+    <!--오라클에서 multi row insert를 수행하려면 시퀀스의 NEXTVAL을 여러 번 사용해도 같은 값이 나온다.
+        하나의 SQL에서는 하나의 NEXTVAL 값만 계속 나오기 때문이다. 따라서 multi row insert를 할 때는
+        반드시 Trigger를 사용해야 한다. Trigger는 DB에 설정되어 있다.
+    -->
+    <insert id="insertUserForSpecialCase" databaseId="oracle">
+        INSERT ALL
+        <foreach collection="passwordList" item="password" index="pwIndex">
+            <foreach collection="addressList" item="address" index="addrIndex">
+                INTO "USER" (NAME, USERNAME, EMAIL, PASSWORD, ADDRESS)
+                VALUES (
+                    :name || '_' || :pwIndex || '_' || :addrIndex,
+                    :username || '_' || :pwIndex || '_' || :addrIndex,
+                    :email || '_' || :pwIndex || '_' || :addrIndex || '@iotree.co.kr',
+                    :password,
+                    :address
+                )
+            </foreach>
+        </foreach>
+        SELECT *
+        FROM DUAL
+    </insert>
+
+    <select id="getUserListForSpecialCase" resultType="shanpark.r2batissample.vo.UserVo" databaseId="oracle">
+        SELECT *
+        FROM "USER"
+        WHERE "ID" IN
+            <foreach collection="oneList" item="item" separator="," open="(" close=")" >
+                <foreach collection="manyList" item="item" separator="," >
+                    :item
+                </foreach>
+                ,:item
+            </foreach>
+        ORDER BY id ASC
+    </select>
+
+    <delete id="deleteUserWithNameStarting" databaseId="oracle">
+        DELETE FROM "USER"
+        WHERE NAME LIKE CONCAT(:prefix, '%')
+    </delete>
+
+</mapper>

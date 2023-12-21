@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapper namespace="shanpark.r2batissample.mapper.UserMapper" >
+
+    <select id="getUserCount" resultType="java.lang.Long" databaseId="mariadb">
+        SELECT COUNT(*)
+        FROM User
+    </select>
+
+    <select id="getUserCountWithNameStarting" resultType="java.lang.Long" databaseId="mariadb">
+        SELECT COUNT(*)
+        FROM User
+        <where>
+            <if test="prefix != null">
+                name LIKE CONCAT(:prefix, '%')
+            </if>
+        </where>
+    </select>
+
+    <select id="getUser" resultType="shanpark.r2batissample.vo.UserVo" databaseId="mariadb">
+        SELECT *
+        FROM User
+        WHERE id = :userId
+    </select>
+
+    <select id="getUserById" resultType="shanpark.r2batissample.vo.UserVo" databaseId="mariadb">
+        SELECT *
+        FROM User
+        <where>
+            <choose>
+                <when test="userId == 21L">
+                    id = 21
+                </when>
+                <when test="userId == 22">
+                    id = 22
+                </when>
+                <when test="userId == 23">
+                    id = 23
+                </when>
+                <when test="userId == 24">
+                    id = 24
+                </when>
+                <when test="userId == 25">
+                    id = 25
+                </when>
+                <otherwise>
+                    id = 30
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+    <select id="getUserListByIds" resultType="shanpark.r2batissample.vo.UserVo" databaseId="mariadb">
+        SELECT *
+        FROM User
+        <where>
+            <if test="!userIds.isEmpty()">
+                id IN
+                    <foreach collection="userIds" item="userId" separator="," open="(" close=")">
+                        :userId
+                    </foreach>
+            </if>
+            OR 1 = 0
+        </where>
+        ORDER BY id ASC
+    </select>
+
+    <select id="getAllUserList" resultType="shanpark.r2batissample.vo.UserVo" databaseId="mariadb">
+        SELECT *
+        FROM User
+    </select>
+
+    <select id="getUserWithNameStarting" resultType="shanpark.r2batissample.vo.UserVo" databaseId="mariadb">
+        SELECT *
+        FROM User
+        <where>
+            <if test="prefix != null">
+                name LIKE CONCAT(:prefix, '%')
+            </if>
+        </where>
+    </select>
+
+    <insert id="insertUserAndGetKeyAndInsertTime" useGeneratedKeys="true" keyColumn="id" resultType="java.lang.Long" databaseId="mariadb">
+        <selectKey keyProperty="userVo.inserted1" resultType="java.util.Date" order="BEFORE">
+            SELECT NOW()
+        </selectKey>
+        <selectKey keyProperty="userVo.inserted2" resultType="java.util.Date" order="BEFORE">
+            SELECT STR_TO_DATE(ADDTIME(:userVo.inserted1, '1'), '%Y-%m-%d %H:%i:%s');
+        </selectKey>
+
+        INSERT INTO User
+            (name, username, email)
+        VALUES
+            (:name, :username, :email)
+
+        <selectKey keyProperty="userVo.inserted3" resultType="java.util.Date" order="after">
+            SELECT STR_TO_DATE(ADDTIME(:userVo.inserted2, '1'), '%Y-%m-%d %H:%i:%s');
+        </selectKey>
+        <selectKey keyProperty="userVo.inserted4" resultType="java.util.Date" order="AFTER">
+            SELECT STR_TO_DATE(ADDTIME(:userVo.inserted3, '1'), '%Y-%m-%d %H:%i:%s');
+        </selectKey>
+    </insert>
+
+    <insert id="insertUserList" databaseId="mariadb"> <!-- default resultType is Long -->
+        INSERT INTO User
+            (name, username, email)
+        VALUES
+        <foreach item="item" collection="userList" separator=",">
+            (:item.name, :item.username, :item.email)
+        </foreach>
+    </insert>
+
+    <update id="updateUserAddressWithNameStarting" databaseId="mariadb">
+        <selectKey keyProperty="userVo.inserted1" resultType="java.util.Date" order="BEFORE">
+            SELECT NOW()
+        </selectKey>
+
+        UPDATE User
+        <set>
+            address = :address
+        </set>
+        WHERE name LIKE CONCAT(:prefix, '%')
+
+        <selectKey keyProperty="userVo.inserted2" resultType="java.util.Date" order="BEFORE">
+            SELECT STR_TO_DATE(ADDTIME(:userVo.inserted1, '1'), '%Y-%m-%d %H:%i:%s');
+        </selectKey>
+    </update>
+
+    <insert id="insertUserForSpecialCase" databaseId="mariadb">
+        INSERT INTO User
+            (name, username, email, password, address)
+        VALUES
+        <foreach collection="passwordList" item="password" separator="," index="pwIndex">
+            <foreach collection="addressList" item="address" separator="," index="addrIndex">
+                (
+                    CONCAT(:name, '_', :pwIndex, '_', :addrIndex),
+                    CONCAT(:username, '_', :pwIndex, '_', :addrIndex),
+                    CONCAT(:email, '_', :pwIndex, '_', :addrIndex, "@iotree.co.kr"),
+                    :password,
+                    :address
+                )
+            </foreach>
+        </foreach>
+    </insert>
+
+    <select id="getUserListForSpecialCase" resultType="shanpark.r2batissample.vo.UserVo" databaseId="mariadb">
+        SELECT *
+        FROM `User` u
+        WHERE id IN
+            <foreach collection="oneList" item="item" separator="," open="(" close=")" >
+                <foreach collection="manyList" item="item" separator="," >
+                    :item
+                </foreach>
+                ,:item
+            </foreach>
+        ORDER BY id ASC
+    </select>
+
+    <delete id="deleteUserWithNameStarting" databaseId="mariadb">
+        DELETE FROM User
+        WHERE name LIKE CONCAT(:prefix, '%')
+    </delete>
+
+</mapper>
