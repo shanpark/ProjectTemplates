@@ -1,6 +1,6 @@
 package shanpark.r2batissample;
 
-import io.github.shanpark.r2batis.R2batisAutoConfiguration;
+import io.github.shanpark.r2batis.configure.R2batisAutoConfiguration;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

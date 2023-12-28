@@ -16,7 +16,7 @@ repositories {
 
 dependencies {
     ...
-    implementation 'io.github.shanpark:r2batis-spring-boot-starter:0.1.5'
+    implementation 'io.github.shanpark:r2batis-spring-boot-starter:0.1.6'
     ...
 }
 ```
@@ -49,6 +49,7 @@ runtimeOnly 'org.mariadb:r2dbc-mariadb:1.1.4'
 ### 3-1. Oracle
 
 - Oracle용 r2dbc 드라이버의 공식 문서상으로는 Oracle 18 이후 버전에서 공식 지원한다고 한다.
+- Tomcat에 WAR로 배포하는 경우 Oracle JDBC 드라이버를 못찾는 에러가 발생한다. Jar 로 실행하는 경우에는 잘된다. (원인 불명)
 - java.util.Date 타입의 값을 파라메터로 전달하거나 DB의 시간값을 읽어와서 java.util.Date 타입으로 받거나 모두 타임존 정보를 무시하고 각자의 로컬 타임으로 해석해서 사용한다.
 
 ### 3-2. MySQL
