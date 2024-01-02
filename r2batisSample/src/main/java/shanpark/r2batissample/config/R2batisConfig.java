@@ -40,7 +40,7 @@ public class R2batisConfig {
     }
 
     /**
-     * 2개 이상의 DB에 연결해야 한다면 직접 ConnectionFactory bean을 등록하고 @R2dbcMapper 어노테이션에서 어떤
+     * 2개 이상의 DB에 연결해야 한다면 직접 ConnectionFactory bean을 등록하고 @R2batisMapper 어노테이션에서 어떤
      * ConnectionFactory를 사용하는지 지정해줘야 한다. 이 때 bean의 이름이 사용되기 떄문에 ConnectionFactory bean을
      * 선언할 때 반드시 name을 지정하도록 한다.
      * 참고로 @Bean 어노테이션에 name을 지정하지 않으면 method 이름이 bean의 이름이 된다.

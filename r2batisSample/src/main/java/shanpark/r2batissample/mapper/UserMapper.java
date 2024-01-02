@@ -1,16 +1,16 @@
 package shanpark.r2batissample.mapper;
 
-import io.github.shanpark.r2batis.annotation.R2dbcMapper;
+import io.github.shanpark.r2batis.annotation.R2batisMapper;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import shanpark.r2batissample.vo.UserVo;
 
 import java.util.List;
 
-@R2dbcMapper(connectionFactory = "oracle") // ConnectionFactory가 2개 이상이라면 이 인터페이스에서 사용할 ConnectionFactory bean의 name을 지정한다.
-//@R2dbcMapper(connectionFactory = "mysql")
-//@R2dbcMapper(connectionFactory = "mariadb")
-//@R2dbcMapper // connectionFactory가 1개라면 지정하지 않아도 된다.
+@R2batisMapper(connectionFactory = "oracle") // ConnectionFactory가 2개 이상이라면 이 인터페이스에서 사용할 ConnectionFactory bean의 name을 지정한다.
+//@R2batisMapper(connectionFactory = "mysql")
+//@R2batisMapper(connectionFactory = "mariadb")
+//@R2batisMapper // connectionFactory가 1개라면 지정하지 않아도 된다.
 public interface UserMapper {
     Mono<Long> getUserCount();
     Mono<Long> getUserCountWithNameStarting(String prefix);

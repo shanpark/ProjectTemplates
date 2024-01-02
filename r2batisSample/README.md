@@ -74,7 +74,7 @@ runtimeOnly 'org.mariadb:r2dbc-mariadb:1.1.4'
 
 - 다음 파일들 참고
   - config/R2batisConfig.java : ConnectionFactory, TransactionManager, R2batisProperties bean 등록 방법 참고
-  - mapper/UserMapper.java : Mapper 인터페이스 작성 시 @R2dbcMapper 어노테이션 설정 참고
+  - mapper/UserMapper.java : Mapper 인터페이스 작성 시 @R2batisMapper 어노테이션 설정 참고
   - service/UserService : Transaction 메서드 작성 시 @Transactional 어노테이션 설정 참고.
 - 현재 코드가 여러 DB를 사용할 때를 대비한 샘플 코드이다.
 - 연결해야 하는 DB의 수 만큼 ConnectionFactory가 필요하고 각 DB에 대한 ConnectionFactory bean을 등록해야 한다. (R2batisConfig 클래스를 참조.)
